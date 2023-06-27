@@ -1,9 +1,13 @@
-apiVersion: storage.k8s.io/v1
 kind: StorageClass
+apiVersion: storage.k8s.io/v1
 metadata:
-  name: ebs-sc
-provisioner: ebs.csi.aws.com
-reclaimPolicy: Retain
-volumeBindingMode: WaitForFirstConsumer
+  name: efs-sc
+provisioner: efs.csi.aws.com
+reclaimPolicy: Delete
 parameters:
-  type: gp2
+  provisioningMode: efs-ap
+  fileSystemId: fs-00f534af0e93b17cd
+  directoryPerms: "700"
+  gidRangeStart: "1000" # optional
+  gidRangeEnd: "2000" # optional
+  basePath: "/dynamic_provisioning" # optional
